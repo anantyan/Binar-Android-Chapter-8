@@ -1,5 +1,5 @@
 # Binar Challenge Chapter 8
-Hello world! 🚀
+Hello world! 🚀 </br>
 [![CI/CD](https://github.com/anantyan/Binar-Android-Chapter-8/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/anantyan/Binar-Android-Chapter-8/actions/workflows/ci.yml)
 ### Rincian
 - Menggunakan ROOM sebagai database lokal dan untuk otentikasi login / register
