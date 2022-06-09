@@ -18,7 +18,7 @@ default_platform(:android)
 platform :android do
   desc "Runs all gradle the tests"
   lane :go do
-    gradle(task: "testDebugUnitTest")
+    gradle(task: "test")
     gradle(task: "lintDebug")
     gradle(task: "clean assembleDebug")
   end
