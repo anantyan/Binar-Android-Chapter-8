@@ -1,6 +1,6 @@
 # Binar Challenge Chapter 8
-Hello world! 🚀 </br>
 [![CI/CD](https://github.com/anantyan/Binar-Android-Chapter-8/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/anantyan/Binar-Android-Chapter-8/actions/workflows/ci.yml)
+- `Hello world! 🚀`
 ### Rincian
 - Menggunakan ROOM sebagai database lokal dan untuk otentikasi login / register
 - MVVM sebagai design pattern dan tambahan DI menggunakan Dagger-Hilt
