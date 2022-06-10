@@ -11,7 +11,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -33,5 +33,5 @@ jobs:
           path: app/build/outputs/apk
       - uses: actions/upload-artifact@v3
         with:
-          name: build-report-linter
+          name: build-report
           path: app/build/reports
