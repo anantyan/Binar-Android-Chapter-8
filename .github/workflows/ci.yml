@@ -11,7 +11,7 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -27,13 +27,11 @@ jobs:
       - uses: maierj/fastlane-action@v2.2.0
         with:
           lane: 'go'
-      - name: set up Binary APK    
-        uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v3
         with:
           name: build-apks
           path: app/build/outputs/apk
-      - name: set up Reports  
-        uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v3
         with:
-          name: build-report
+          name: build-report-linter
           path: app/build/reports
