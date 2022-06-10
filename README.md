@@ -2,7 +2,6 @@
 [![CI/CD](https://github.com/anantyan/Binar-Android-Chapter-8/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/anantyan/Binar-Android-Chapter-8/actions/workflows/ci.yml)
 - `Hello world! 🚀`
 ### Rincian
-- Menggunakan ROOM sebagai database lokal dan untuk otentikasi login / register
 - MVVM sebagai design pattern dan tambahan DI menggunakan Dagger-Hilt
 - Lalu ada beberapa halaman seperti MainActivity / Home dengan menerapkan Jetpack Compose
 - Selebihnya masih menggunakan Layout XML yang ada pada Login, Register dan Profile
