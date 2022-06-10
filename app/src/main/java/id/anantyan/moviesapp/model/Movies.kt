@@ -1,8 +1,11 @@
 package id.anantyan.moviesapp.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import id.anantyan.moviesapp.utils.Constant.BASE_IMAGE
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Movies(
 
     @SerializedName("results")
@@ -16,8 +19,9 @@ data class Movies(
 
     @SerializedName("success")
     val success: Boolean? = null
-)
+) : Parcelable
 
+@Parcelize
 data class ResultsItem(
 
     @SerializedName("overview")
@@ -64,7 +68,7 @@ data class ResultsItem(
 
     @SerializedName("vote_count")
     val voteCount: Int? = null
-) {
+) : Parcelable {
     val backdropPath get() = "${BASE_IMAGE}${_backdropPath}"
     val posterPath get() = "${BASE_IMAGE}${_posterPath}"
 }

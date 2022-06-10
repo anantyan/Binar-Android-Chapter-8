@@ -6,11 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import id.anantyan.moviesapp.R
 import id.anantyan.moviesapp.databinding.ActivityAuthBinding
 import id.anantyan.moviesapp.ui.main.MainActivity
-import id.anantyan.moviesapp.utils.DataStoreManager
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -18,7 +18,8 @@ class AuthActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAuthBinding
     private lateinit var navController: NavController
-    @Inject lateinit var store: DataStoreManager
+
+    @Inject lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +33,7 @@ class AuthActivity : AppCompatActivity() {
         navController = navHost.navController
         NavigationUI.setupWithNavController(binding.toolbar, navController)
 
-        val idUsr = store.getUserId()
-        if (idUsr != -1) {
+        auth.currentUser?.let {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()

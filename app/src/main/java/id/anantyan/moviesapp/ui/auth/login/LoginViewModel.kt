@@ -1,11 +1,12 @@
 package id.anantyan.moviesapp.ui.auth.login
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.anantyan.moviesapp.data.local.model.UsersLocal
 import id.anantyan.moviesapp.repository.UsersLocalRepository
-import id.anantyan.moviesapp.utils.LiveEvent
 import id.anantyan.moviesapp.utils.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,23 +15,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val localRepository: UsersLocalRepository
+    private val repository: UsersLocalRepository
 ) : ViewModel() {
-    private val _login: LiveEvent<Resource<UsersLocal>> = LiveEvent()
-    val login: LiveData<Resource<UsersLocal>> = _login
-
-    fun login(email: String, password: String) = CoroutineScope(Dispatchers.IO).launch {
+    private val _signInWithGoogle: MutableLiveData<Resource<Unit?>> = MutableLiveData()
+    val signInWithGoogle: LiveData<Resource<Unit?>> = _signInWithGoogle
+    fun signInWithGoogle(account: GoogleSignInAccount) = CoroutineScope(Dispatchers.Main).launch {
         try {
-            val response = localRepository.login(email, password)
-            if (response != null) {
-                _login.postValue(Resource.Success(response))
-            } else {
-                throw Exception("Email atau Password tidak sah!")
-            }
+            val unit = repository.signInCredential(account)
+            _signInWithGoogle.postValue(Resource.Success(unit))
         } catch (ex: Exception) {
-            _login.postValue(
-                ex.message?.let { Resource.Error(code = null, message = it) }
-            )
+            _signInWithGoogle.postValue(Resource.Error(null, "${ex.message}"))
         }
     }
 }

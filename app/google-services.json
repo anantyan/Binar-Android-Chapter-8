@@ -1,0 +1,93 @@
+{
+  "project_info": {
+    "project_number": "150238604736",
+    "firebase_url": "https://project-crud-ad7ed-default-rtdb.firebaseio.com",
+    "project_id": "project-crud-ad7ed",
+    "storage_bucket": "project-crud-ad7ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150238604736:android:5b58b4336ef178f3c96c25",
+        "android_client_info": {
+          "package_name": "com.anantyan.moviesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150238604736-3ck1a35cjrk64aavvmqjepkpkrlj77d9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anantyan.moviesapp",
+            "certificate_hash": "ea8b61229d595f54c851843f4b97242bd120aac8"
+          }
+        },
+        {
+          "client_id": "150238604736-r4h42uber3910r63nmt3clm7pq52imk2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anantyan.moviesapp",
+            "certificate_hash": "ddab64d861dacd1fdf15e98b45a4af401633d01d"
+          }
+        },
+        {
+          "client_id": "150238604736-d4l2ptd4ljenjf6as9n77r4sq5nojgrm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzLPefsAx3fou-fA1uhFksoHmAFyJ9bv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150238604736-d4l2ptd4ljenjf6as9n77r4sq5nojgrm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150238604736:android:82f7346a933c7539c96c25",
+        "android_client_info": {
+          "package_name": "id.anantyan.moviesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150238604736-qpoqn62d8q445gv1ig9ocpl4enbpdvuq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.anantyan.moviesapp",
+            "certificate_hash": "ea8b61229d595f54c851843f4b97242bd120aac8"
+          }
+        },
+        {
+          "client_id": "150238604736-d4l2ptd4ljenjf6as9n77r4sq5nojgrm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzLPefsAx3fou-fA1uhFksoHmAFyJ9bv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150238604736-d4l2ptd4ljenjf6as9n77r4sq5nojgrm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

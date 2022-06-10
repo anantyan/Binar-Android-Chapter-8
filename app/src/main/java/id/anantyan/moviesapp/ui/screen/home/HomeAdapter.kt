@@ -1,6 +1,8 @@
 package id.anantyan.moviesapp.ui.screen.home
 
+import android.content.Intent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
@@ -26,6 +28,7 @@ import coil.request.ImageRequest
 import coil.size.Size
 import id.anantyan.moviesapp.R
 import id.anantyan.moviesapp.model.ResultsItem
+import id.anantyan.moviesapp.ui.home_detail.HomeDetailActivity
 import id.anantyan.moviesapp.ui.theme.HeartRed
 
 @Composable
@@ -65,7 +68,14 @@ fun movieItem(items: ResultsItem) {
     Box(
         modifier = Modifier
             .height(300.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable(
+                onClick =  {
+                    val intent = Intent(context, HomeDetailActivity::class.java)
+                    intent.putExtra("TO_HOME_DETAIL", items)
+                    context.startActivity(intent)
+                }
+            ),
         contentAlignment = Alignment.BottomCenter
     ) {
         Image(

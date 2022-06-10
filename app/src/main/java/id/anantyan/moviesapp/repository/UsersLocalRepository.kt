@@ -1,21 +1,25 @@
 package id.anantyan.moviesapp.repository
 
-import id.anantyan.moviesapp.data.local.UsersDao
-import id.anantyan.moviesapp.data.local.model.UsersLocal
-import id.anantyan.moviesapp.utils.DataStoreManager
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class UsersLocalRepository @Inject constructor(
-    private val usersDao: UsersDao,
-    private val store: DataStoreManager
+    private val auth: FirebaseAuth,
+    private val oAuth: GoogleSignInClient
 ) {
-    suspend fun getAccount() = usersDao.showAccount(store.getUserId())
-    suspend fun login(email: String, password: String) = usersDao.login(email, password)
-    suspend fun register(email: String, password: String) = usersDao.register(
-        UsersLocal(
-            email = email,
-            password = password
-        )
-    )
-    suspend fun checkAccountByEmail(email: String) = usersDao.checkAccount(null, email)
+    fun getUsers() = auth.currentUser
+
+    suspend fun signOutCredential() {
+        auth.signOut()
+        oAuth.signOut().await()
+    }
+
+    suspend fun signInCredential(account: GoogleSignInAccount) {
+        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+        auth.signInWithCredential(credential).await()
+    }
 }

@@ -4,21 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import id.anantyan.moviesapp.R
 import id.anantyan.moviesapp.databinding.FragmentLoginBinding
-import id.anantyan.moviesapp.utils.DataStoreManager
 import id.anantyan.moviesapp.utils.Resource
-import id.anantyan.moviesapp.utils.emailValid
-import id.anantyan.moviesapp.utils.passwordValid
-import io.github.anderscheow.validator.Validator
-import io.github.anderscheow.validator.constant.Mode
-import io.github.anderscheow.validator.validator
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -26,8 +24,10 @@ class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-    @Inject lateinit var store: DataStoreManager
     private val viewModel: LoginViewModel by viewModels()
+
+    @Inject lateinit var auth: FirebaseAuth
+    @Inject lateinit var oAuth: GoogleSignInClient
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,21 +44,15 @@ class LoginFragment : Fragment() {
     }
 
     private fun onBindView() {
-        binding.btnSignIn.setOnClickListener {
-            onValidation()
-        }
-        binding.txtSignUp.setOnClickListener {
-            val destination = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
-            it.findNavController().navigate(destination)
+        binding.btnGoogle.setOnClickListener {
+            contracts.launch(oAuth.signInIntent)
         }
     }
 
     private fun onBindObserver(view: View) {
-        viewModel.login.observe(viewLifecycleOwner) {
+        viewModel.signInWithGoogle.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
-                    store.setLogIn(true)
-                    store.setUserId(it.data?.userId!!)
                     val destination = LoginFragmentDirections.actionLoginFragmentToMainActivity()
                     view.findNavController().navigate(destination)
                     requireActivity().finish()
@@ -71,35 +65,21 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun onValidation() {
-        validator(requireContext()) {
-            mode = Mode.SINGLE
-            listener = onSignIn
-            validate(
-                emailValid(binding.txtLayoutEmail),
-                passwordValid(binding.txtLayoutPassword)
-            )
-        }
-    }
-
     private fun onSnackbar(message: String) {
         val snackbar = Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
         snackbar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.error))
         snackbar.show()
     }
 
+    private val contracts = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        val data = it.data
+        val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+        val account = task.result
+        viewModel.signInWithGoogle(account)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private val onSignIn = object : Validator.OnValidateListener {
-        override fun onValidateSuccess(values: List<String>) {
-            val email = binding.txtInputEmail.text.toString()
-            val password = binding.txtInputPassword.text.toString()
-            viewModel.login(email, password)
-        }
-
-        override fun onValidateFailed(errors: List<String>) {}
     }
 }
